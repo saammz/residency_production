@@ -1,0 +1,21 @@
+# Dependency directories
+/node_modules
+
+# Compiled output
+/build
+/dist
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Environment files
+.env
+
+# IDE files
+.idea
+.vscode
+
+# OS generated files
+.DS_Store
+Thumbs.db
