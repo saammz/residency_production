@@ -5,6 +5,7 @@ import coalcity from '../../resources/coalcity.png';
 import { auth, db } from "../../components/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Loader from "../../components/Loader";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
 
@@ -29,11 +30,21 @@ const Dashboard = () => {
     fetchUserData();
   }, []);
 
+  const handleLogout = async() => {
+    try {
+      await auth.signOut();
+      toast.success('Logged out successfully')
+      navigate('/login');
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
   return (
     <main>
       {userDetails ? (
         <>
-              <div className="">
+        <div className="">
         <header className="flex items-start justify-between sm-max:flex sm-max:flex-col">
           <div className="relative flex ml-[4.5rem] sm-max:ml-[4rem]">
             <div className="absolute w-[200px] h-[120px] left-[-10rem] top-[-1rem] sm-max:w-[150px] sm-max:left-[-7.5rem] sm-max:top-[-2rem]">
@@ -64,9 +75,16 @@ const Dashboard = () => {
             </ul>
             <button
               type="submit"
-              className="btn btn-primary animate-pulse bg-green-700 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-full w-full mt-1 transition duration-300 ease-in-out"
+              className="btn btn-primary animate-pulse bg-green-700 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-full w-full mt-8 transition duration-300 ease-in-out"
             >
               Update Information
+            </button>
+            <button
+              onClick={handleLogout}
+              type="submit"
+              className="btn btn-primary bg-red-700 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-full w-full mt-3"
+            >
+              Logout
             </button>
           </nav>
         </header>
@@ -74,7 +92,7 @@ const Dashboard = () => {
       <div>
       <div className="flex flex-col mt-20">
         <div className="">
-          <h1 className="text-green-600 font-semibold text-left text-4xl mb-4 xsm-max:text-xl">{userDetails.firstName}</h1>
+          <h1 className="text-green-600 font-semibold text-left text-4xl mb-4 xsm-max:text-xl">Hello {userDetails.firstName}</h1>
           <div className="flex gap-10 sm-max:flex sm-max:flex-col">
             <div className="flex-1">
               <div className="bg-green-600 p-16 rounded-lg text-white flex flex-col items-start">

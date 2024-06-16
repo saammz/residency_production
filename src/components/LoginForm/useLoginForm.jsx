@@ -11,7 +11,7 @@ const useLoginForm = () => {
     password: '',
   });
   const [loading, setLoading] = useState(false);
-  const { navigate } = useNavigate();
+  const navigate  = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +36,11 @@ const useLoginForm = () => {
       navigate("/dashboard");
 
     } catch (error) {
-      toast.error(error.message)
+      if (error.code === 'auth/invalid-credential') {
+        toast.error('Invalid credentials');
+      } else {
+        toast.error(error.message);
+      }
       setLoading(false)
     } finally {
       setLoading(false)
