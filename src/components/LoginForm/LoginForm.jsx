@@ -1,8 +1,9 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { GoEyeClosed, GoEye } from 'react-icons/go';
 import pana from "../../resources/pana.png";
 import map from "../../resources/enugu_map.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useLoginForm from './useLoginForm';
 import Spinner from '../../components/Spinner/Spinner';
 
@@ -13,21 +14,8 @@ const Login = () => {
     loading,
     handleChange,
     togglePasswordVisibility,
-    setLoading,
-    resetForm
+    handleSubmit,
   } = useLoginForm();
-
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    console.log(formData);
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    // Assuming successful login, redirect to dashboard
-    navigate("/dashboard");
-  };
 
   return (
     <div className="flex items-center justify-center h-full">
@@ -39,15 +27,15 @@ const Login = () => {
         </div>
         <form onSubmit={handleSubmit} className="mt-12">
           <div className="mb-4">
-            <label htmlFor="username" className="block text-left mb-1 pl-2 text-gray-600">
-              Username
+            <label htmlFor="email" className="block text-left mb-1 pl-2 text-gray-600">
+              Email
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
-              placeholder="Enter your username"
-              value={formData.username}
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
               onChange={handleChange}
               required
               className="input-field bg-white border-2 border-green-500 w-full py-2 px-3 rounded-3xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
